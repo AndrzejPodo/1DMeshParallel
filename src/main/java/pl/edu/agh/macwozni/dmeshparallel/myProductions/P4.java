@@ -13,7 +13,7 @@ public class P4 extends AbstractProduction<Vertex> {
     @Override
     public Vertex apply(Vertex t2) {
         System.out.println("p4");
-        Vertex t2Prim = new Vertex(t2, null, "T2");
+        Vertex t2Prim = new Vertex(t2, t2.getRight(), "T2");
         t2.setRight(t2Prim);
         return t2;
     }
