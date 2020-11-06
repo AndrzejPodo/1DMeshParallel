@@ -1,20 +1,27 @@
 package pl.edu.agh.macwozni.dmeshparallel.myProductions;
 
+import pl.edu.agh.macwozni.dmeshparallel.mesh.CornerOfVertices;
 import pl.edu.agh.macwozni.dmeshparallel.mesh.Vertex;
 import pl.edu.agh.macwozni.dmeshparallel.production.AbstractProduction;
 import pl.edu.agh.macwozni.dmeshparallel.production.PDrawer;
 
-public class P4 extends AbstractProduction<Vertex> {
+public class P4 extends AbstractProduction<CornerOfVertices, Vertex> {
 
-    public P4(Vertex _obj, PDrawer<Vertex> _drawer) {
+    public P4(CornerOfVertices _obj, PDrawer<Vertex> _drawer) {
         super(_obj, _drawer);
     }
 
     @Override
-    public Vertex apply(Vertex t2) {
+    public Vertex apply(CornerOfVertices c) {
         System.out.println("p4");
-        Vertex t2Prim = new Vertex(t2, t2.getRight(), "T2");
-        t2.setRight(t2Prim);
-        return t2;
+        Vertex m = new Vertex("M");
+        
+        c.upperVertex.setEast(m);
+        m.setWest(c.upperVertex);
+
+        c.lowerVertex.setNorth(m);
+        m.setSouth(c.lowerVertex);
+
+        return m;
     }
 }

@@ -6,15 +6,42 @@ public class GraphDrawer implements PDrawer<Vertex> {
 
     @Override
     public void draw(Vertex v) {
-        //go left
-        while (v.mLeft != null) {
-            v = v.mLeft;
+        // go west
+        while (v.mWest != null) {
+            v = v.mWest;
         }
-        //plot
-        while (v.mRight != null) {
-            System.out.print(v.mLabel + "--");
-            v = v.mRight;
+
+        // go south
+        while (v.mNorth != null) {
+            v = v.mNorth;
         }
-        System.out.println(v.mLabel);
+
+        // plot
+        Vertex lineBeginning = v, _v;
+        while (lineBeginning != null) {
+            v = lineBeginning;
+            _v = v;
+            lineBeginning = lineBeginning.mSouth;
+            // firstly lets print labels
+            while (v != null) {
+                System.out.print(v.mLabel);
+                if (v.mEast != null) {
+                    System.out.print("--");
+                }
+                v = v.mEast;
+            }
+            System.out.println("");
+            v = _v;
+            // secondly lets print links
+            while (v != null) {
+                if (v.mSouth != null) {
+                    System.out.print("|  ");
+                } else {
+                    System.out.print("   ");
+                }
+                v = v.mEast;
+            }
+            System.out.println("");
+        }
     }
 }
